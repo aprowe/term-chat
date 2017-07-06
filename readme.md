@@ -14,19 +14,31 @@ send ssh-keys, tokens, urls, or whatever you need to your coding buddies and tea
 npm install -g term-chat
 
 # Server Mode
-termchat --server 
+termchat --server
 
 # Client Mode
 termchat --host http://localhost
 ```
 Run `termchat --help` for all options.
 
+Example output (real output is colored!):
+```
+$ termchat -h localhost
+connected to http://localhost:2797/
+channel: general
+users in channel: punky, alex
+user connected: alex
+
+alex: hello!
+punky: hi
+```
+
 ### Piping and One-off messages
 Term-chat can have input piped into it or have a message as a paramter like so:
 ```bash
 cat id_rsa.pub | termchat
 
-## Or
+# Or
 termchat $(cat id_rsa.pub)
 ```
 
