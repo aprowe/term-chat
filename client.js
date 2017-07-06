@@ -15,9 +15,9 @@ var _channel;
 var _user;
 
 // Start client by connecting to socket and subscribing to channel events
-function startClient(host, port, channel, user, message, cb) {
+function startClient(host, port, channel, user, message) {
   //  Format the server URL
-  let url = Url.parse(host);
+  var url = Url.parse(host);
   url.host = null;
   url.protocol = 'http:';
   url.port = port;
