@@ -54,7 +54,7 @@ function startClient(host, port, channel, user, message) {
   _socket.on('server_info', function (data) {
     print(
       'users in channel: ' +
-      chalk.gray(data.users.join(', '))
+      chalk.yellow(data.users.join(', '))
     );
   });
 
@@ -77,7 +77,7 @@ function startClient(host, port, channel, user, message) {
     // Log output
     print(
       color.bold(data.user + ': ') +
-      chalk.gray(data.message)
+      chalk.white(data.message)
     );
   });
 
