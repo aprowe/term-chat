@@ -12,8 +12,12 @@ send ssh-keys, tokens, urls, or whatever you need to your coding buddies and tea
 ### Installation and Usage
 ```bash
 npm install -g term-chat
-termchat --server # Server Mode
-termchat --host http://localhost # Client Mode
+
+# Server Mode
+termchat --server 
+
+# Client Mode
+termchat --host http://localhost
 ```
 Run `termchat --help` for all options.
 
