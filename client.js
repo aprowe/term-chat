@@ -35,7 +35,6 @@ function startClient(host, port, channel, user, cb) {
   _socket.on('connect', function () {
     print(chalk.green('connected to ' + url.format()));
     print('channel: ' + chalk.bold.yellow(_channel));
-    print('user: ' + chalk.bold.yellow(_user));
 
     _socket.emit('user_connect', {
       channel: _channel,
@@ -51,6 +50,11 @@ function startClient(host, port, channel, user, cb) {
       'users in channel: ' +
       chalk.gray(data.users.join(', '))
     );
+  });
+
+  // Subscribe to general server_messages
+  _socket.on('server_message', function (message) {
+    print(message);
   });
 
   // Subscribe to channel events
