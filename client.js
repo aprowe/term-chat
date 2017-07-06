@@ -72,8 +72,8 @@ function startClient(host, port, channel, user, cb) {
   });
 
   // Display errors
-  _socket.on('connect_error', function () {
-    print(chalk.bold.red('Error connecting to server'));
+  _socket.on('connect_error', function (data) {
+    print(chalk.bold.red('Error connecting to server: \n' + data));
     process.exit();
   });
 }
