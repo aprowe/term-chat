@@ -1,12 +1,12 @@
 {
   "name": "term-chat",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Lightweight Chat Client CLI",
   "main": "index.js",
   "scripts": {
   },
   "bin": {
-    "term2chat": "./bin/termchat"
+    "termchat": "./bin/termchat"
   },
   "author": "Alexander Rowe <alexrowe707@gmail.com> (http://alexrowe.net)",
   "license": "MIT",
