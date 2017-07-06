@@ -20,6 +20,11 @@ function getUsers(channel) {
   return connectedUsers;
 }
 
+function serverMessage (msg) {
+  // Show status that a user connected
+  _io.to(this.channel).emit('server_message', Buffer(msg));
+}
+
 function startServer (port) {
   var server = http.Server();
   var io = socketio(server);
@@ -34,6 +39,7 @@ function startServer (port) {
       // Attach user name to socket and join channel
       socket.username = data.user;
       socket.channel = data.channel;
+      socket.serverMessage = serverMessage.bind(socket);
       socket.join(data.channel);
 
       // Give user list to clients
@@ -42,14 +48,14 @@ function startServer (port) {
       });
 
       // Show status that a user connected
-      io.to(data.channel).emit('server_message',
+      socket.serverMessage(
         chalk.green('user connected: ') + data.user
       );
     });
 
     socket.on('disconnect', function () {
       // Show status that a user disconnected
-      io.to(socket.channel).emit('server_message',
+      socket.serverMessage(
         chalk.yellow('user disconnected: ') + socket.username
       );
     });

@@ -59,8 +59,8 @@ function startClient(host, port, channel, user, message) {
   });
 
   // Subscribe to general server_messages
-  _socket.on('server_message', function (message) {
-    print(message);
+  _socket.on('server_message', function (buffer) {
+    print(buffer.toString());
   });
 
   // Subscribe to channel events
