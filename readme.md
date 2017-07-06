@@ -4,9 +4,9 @@
 ## Lightweight terminal chat server and client
 
 Term-chat is a simple server and client npm package that allows users to send and receive messages
-in the terminal.
+in the terminal. It can be opened as an interactive chat client, or used as a command to send a single message.
 
-**Perhaps the most useful feature of it is the ability to pipe in messages to quickly
+**Perhaps the most useful feature is the ability to pipe in messages to quickly
 send ssh-keys, tokens, urls, or whatever you need to your coding buddies and teammates.**
 
 ### Installation and Usage
@@ -21,6 +21,7 @@ termchat --host http://localhost
 ```
 Run `termchat --help` for all options.
 
+### Example Output
 Example output (real output is colored!):
 ```
 $ termchat -h localhost

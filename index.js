@@ -1,7 +1,7 @@
 var readline = require('readline');
 
-var server = require('./server');
-var client = require('./client');
+var server = require('./src/server');
+var client = require('./src/client');
 
 // Set up argumnets
 const argv = require('yargs')
