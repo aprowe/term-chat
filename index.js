@@ -48,16 +48,6 @@ var message = argv._.join(' ');
 // Readline Variable
 var readLine;
 
-// Read Input from stdin (i.e. piping in)
-process.stdin.setEncoding('utf8');
-process.stdin.on('readable', () => {
-  var chunk = process.stdin.read();
-  if (chunk !== null) {
-    message = chunk;
-  }
-});
-
-
 // If server is set, start server
 if (argv.server) {
   server.startServer(argv.port);
@@ -65,19 +55,7 @@ if (argv.server) {
 // Otherwise, start the client socket
 } else {
   startReadline();
-
-  client.startClient(argv.host, argv.port, argv.channel, argv.user, function () {
-    if (message) {
-      sendMessageAndExit(message);
-    }
-  });
-}
-
-// Send message to server
-function sendMessageAndExit (message) {
-  client.sendMessage(message, function () {
-    process.exit();
-  });
+  client.startClient(argv.host, argv.port, argv.channel, argv.user, message);
 }
 
 // Set up read line

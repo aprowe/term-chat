@@ -15,7 +15,7 @@ var _channel;
 var _user;
 
 // Start client by connecting to socket and subscribing to channel events
-function startClient(host, port, channel, user, cb) {
+function startClient(host, port, channel, user, message, cb) {
   //  Format the server URL
   let url = Url.parse(host);
   url.host = null;
@@ -36,12 +36,18 @@ function startClient(host, port, channel, user, cb) {
     print(chalk.green('connected to ' + url.format()));
     print('channel: ' + chalk.bold.yellow(_channel));
 
+    // If a there is a message,
+    // exit early
+    if (message) {
+      return sendMessage(message, function () {
+        process.exit();
+      });
+    }
+
     _socket.emit('user_connect', {
       channel: _channel,
       user: _user,
     });
-
-    cb();
   });
 
   // Subscribe to server messages
