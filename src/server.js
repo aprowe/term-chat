@@ -26,6 +26,13 @@ function getUsers(channel) {
   return connectedUsers;
 }
 
+// Get chat history for a channel
+function getHistory(channel, count) {
+  return _history.filter(function (item) {
+    return item.channel === channel
+  }).slice(0, count).reverse();
+}
+
 function serverMessage (msg) {
   // Show status that a user connected
   _io.to(this.channel).emit('server_message', Buffer(msg));
@@ -54,7 +61,7 @@ function startServer (port) {
         users: getUsers(data.channel),
 
         //  Give number of history items based on clients options
-        history: _history.slice(0, data.historyCount).reverse()
+        history: getHistory(data.channel, data.historyCount)
       });
 
       // Show status that a user connected
