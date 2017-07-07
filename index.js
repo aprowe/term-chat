@@ -30,6 +30,10 @@ in interactive mode.')
   .alias('u', 'user')
   .describe('u', 'Your nickname in server chat')
 
+  .boolean('background')
+  .alias('b', 'background')
+  .describe('b', 'Backround mode, do not expect any stdin')
+
   .default('history', 5)
   .alias('i', 'history')
   .describe('i', 'Number of previous messages to show on login')
@@ -58,7 +62,9 @@ if (argv.server) {
 
 // Otherwise, start the client socket
 } else {
-  startReadline();
+  if (!argv.background) {
+    startReadline();
+  }
   client.startClient(argv, message);
 }
 
