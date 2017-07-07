@@ -23,7 +23,12 @@ function startClient(config, message) {
   url.port = config.port;
 
   // Create socket with formatted URL
-  _socket = socketClient(url.format());
+  _socket = socketClient(url.format(), {
+    reconnection: true,
+    reconnectionDelay: 2500,
+    reconnectionDelayMax : 5000,
+    reconnectionAttempts: 5
+  });
 
   // Set internal state
   _channel = config.channel;
@@ -70,7 +75,17 @@ function startClient(config, message) {
 
   // Display errors
   _socket.on('connect_error', function (data) {
-    print(chalk.bold.red('Error connecting to server: \n' + data));
+    print(chalk.red('Connecting ' + data));
+  });
+
+  _socket.on('reconnecting', function () {
+    print(chalk.yellow('Attempting to reconnect..'));
+  });
+
+  // After reconnect attempts
+  _socket.on('reconnect_failed', function () {
+    print(chalk.bold.red('Could not connect to server'));
+    process.exit();
   });
 }
 
