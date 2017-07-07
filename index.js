@@ -5,7 +5,7 @@ var client = require('./src/client');
 
 // Set up argumnets
 const argv = require('yargs')
-  .usage('Usage: nchat [options] [message] \n \
+  .usage('Usage: termchat [options] [message] \n \
 Lightweight CLI chat client and server. If message is included, the process \
 will send the message and immediately exit. If omitted, the process will stay open \
 in interactive mode.')
@@ -29,6 +29,10 @@ in interactive mode.')
   .default('user', process.env.USER || 'anonymous')
   .alias('u', 'user')
   .describe('u', 'Your nickname in server chat')
+
+  .default('history', 5)
+  .alias('i', 'history')
+  .describe('i', 'Number of previous messages to show on login')
 
   .boolean('version')
   .describe('version', 'Display Version')
@@ -55,7 +59,7 @@ if (argv.server) {
 // Otherwise, start the client socket
 } else {
   startReadline();
-  client.startClient(argv.host, argv.port, argv.channel, argv.user, message);
+  client.startClient(argv, message);
 }
 
 // Set up read line

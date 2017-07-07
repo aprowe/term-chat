@@ -4,6 +4,12 @@ var chalk = require('chalk');
 
 var _io;
 
+// Max Number of history items
+var MAX_HISTORY = 500;
+
+// History of messages (Ephermal)
+var _history = [];
+
 // Gets a list of users in a channel
 function getUsers(channel) {
   // get all clients in room
@@ -44,7 +50,11 @@ function startServer (port) {
 
       // Give user list to clients
       socket.emit('server_info', {
-        users: getUsers(data.channel)
+        // Get all users in channel
+        users: getUsers(data.channel),
+
+        //  Give number of history items based on clients options
+        history: _history.slice(0, data.historyCount).reverse()
       });
 
       // Show status that a user connected
@@ -63,6 +73,11 @@ function startServer (port) {
     // When a message is recieved, broadcast it to all clients
     socket.on('message_out', function (data, callback) {
       io.to(data.channel).emit('message_in', data);
+
+      _history.unshift(data);
+      if (_history.length > MAX_HISTORY) {
+        _history.pop();
+      }
       console.log('Message: ', data);
 
       // Callback if available

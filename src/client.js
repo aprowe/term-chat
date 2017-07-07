@@ -15,21 +15,19 @@ var _channel;
 var _user;
 
 // Start client by connecting to socket and subscribing to channel events
-function startClient(host, port, channel, user, message) {
+function startClient(config, message) {
   //  Format the server URL
-  var url = Url.parse(host);
+  var url = Url.parse(config.host);
   url.host = null;
-  url.protocol = 'http:';
-  url.port = port;
+  url.protocol = 'http';
+  url.port = config.port;
 
   // Create socket with formatted URL
-  _socket = socketClient(url.format(), {
-    timeout: 5000
-  });
+  _socket = socketClient(url.format());
 
   // Set internal state
-  _channel = channel;
-  _user = user;
+  _channel = config.channel;
+  _user = config.user;
 
   // Connect and return with callback
   _socket.on('connect', function () {
@@ -47,6 +45,7 @@ function startClient(host, port, channel, user, message) {
     _socket.emit('user_connect', {
       channel: _channel,
       user: _user,
+      historyCount: config.history,
     });
   });
 
@@ -56,6 +55,9 @@ function startClient(host, port, channel, user, message) {
       'users in channel: ' +
       chalk.yellow(data.users.join(', '))
     );
+
+    // Print all historic messages
+    data.history.forEach(printMessage);
   });
 
   // Subscribe to general server_messages
@@ -64,30 +66,34 @@ function startClient(host, port, channel, user, message) {
   });
 
   // Subscribe to channel events
-  _socket.on('message_in', function (data) {
-    var color;
-
-    // Set color of user vs yourself
-    if (data.user == _user) {
-      color = chalk.green;
-    } else {
-      color = chalk.blue;
-    }
-
-    // Log output
-    print(
-      color.bold(data.user + ': ') +
-      chalk.white(data.message)
-    );
-  });
+  _socket.on('message_in', printMessage);
 
   // Display errors
   _socket.on('connect_error', function (data) {
     print(chalk.bold.red('Error connecting to server: \n' + data));
-    process.exit();
   });
 }
 
+/**
+ * Prints a message from a message object
+ * @param  {object} data  {user, message, channel}
+ */
+function printMessage (data) {
+  var color;
+
+  // Set color of user vs yourself
+  if (data.user == _user) {
+    color = chalk.green;
+  } else {
+    color = chalk.blue;
+  }
+
+  // Log output
+  print(
+    color.bold(data.user + ': ') +
+    chalk.white(data.message)
+  );
+}
 
 // Send a message with callback
 function sendMessage(message, callback) {
