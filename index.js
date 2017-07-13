@@ -2,6 +2,7 @@ var readline = require('readline');
 
 var server = require('./src/server');
 var client = require('./src/client');
+var jsonClient = require('./src/json_client');
 
 // Set up argumnets
 const argv = require('yargs')
@@ -29,6 +30,10 @@ in interactive mode.')
   .default('user', process.env.USER || 'anonymous')
   .alias('u', 'user')
   .describe('u', 'Your nickname in server chat')
+
+  .boolean('json')
+  .alias('j', 'json')
+  .describe('j', 'Output server state in JSON and exit')
 
   .boolean('background')
   .alias('b', 'background')
@@ -60,7 +65,10 @@ var readLine;
 if (argv.server) {
   server.startServer(argv.port);
 
-// Otherwise, start the client socket
+} else if (argv.json){
+  jsonClient.startClient(argv, message);
+
+  // Otherwise, start the client socket
 } else {
   if (!argv.background) {
     startReadline();
