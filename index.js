@@ -3,6 +3,7 @@ var readline = require('readline');
 var server = require('./src/server');
 var client = require('./src/client');
 var jsonClient = require('./src/json_client');
+var grabClient = require('./src/grab_client');
 
 // Set up argumnets
 const argv = require('yargs')
@@ -43,6 +44,10 @@ in interactive mode.')
   .alias('i', 'history')
   .describe('i', 'Number of previous messages to show on login')
 
+  .boolean('grab')
+  .alias('g', 'grab')
+  .describe('g', 'Grab Last message')
+
   .boolean('version')
   .describe('version', 'Display Version')
 
@@ -67,6 +72,9 @@ if (argv.server) {
 
 } else if (argv.json){
   jsonClient.startClient(argv, message);
+
+} else if (argv.grab){
+  grabClient.startClient(argv);
 
   // Otherwise, start the client socket
 } else {
@@ -96,10 +104,10 @@ function startReadline () {
   
     // If Start of message, make a multi long message
     if (!message) {
-      process.nextTick(function (){
+      setTimeout(function (){
         client.sendMessage(message);
         message = '';
-      });
+      }, 4);
     }
 
     message += line;
