@@ -1,6 +1,6 @@
 {
   "name": "term-chat",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Lightweight Chat Client CLI",
   "main": "index.js",
   "keywords": [

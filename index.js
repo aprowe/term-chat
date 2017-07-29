@@ -84,6 +84,8 @@ function startReadline () {
     terminal: true
   });
 
+  let message = '';
+
   readLine.on('line', function(line){
     // we are only interested in non-empty lines
     if (!line) return;
@@ -91,6 +93,16 @@ function startReadline () {
     // Move cursor up one line and clear line
     process.stdout.moveCursor(0, -1);
     process.stdout.clearLine();
-    client.sendMessage(line);
+  
+    // If Start of message, make a multi long message
+    if (!message) {
+      process.nextTick(function (){
+        client.sendMessage(message);
+        message = '';
+      });
+    }
+
+    message += line;
   });
+
 }
