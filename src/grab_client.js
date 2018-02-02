@@ -1,7 +1,6 @@
 var Url = require('url');
 var chalk = require('chalk');
 var socketClient = require('socket.io-client');
-var fs = require('fs');
 
 // console.log wrapper
 var print = console.log;
@@ -40,7 +39,7 @@ function startClient(config) {
     _socket.emit('user_connect', {
       channel: _channel,
       user: _user,
-      historyCount: 1,
+      historyCount: Number(config.grab),
     });
   });
 

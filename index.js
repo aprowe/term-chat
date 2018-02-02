@@ -44,7 +44,7 @@ in interactive mode.')
   .alias('i', 'history')
   .describe('i', 'Number of previous messages to show on login')
 
-  .boolean('grab')
+  .default('grab', 0)
   .alias('g', 'grab')
   .describe('g', 'Grab Last message')
 
