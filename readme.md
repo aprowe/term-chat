@@ -18,8 +18,13 @@ termchat --server
 
 # Client Mode
 termchat --host http://localhost
+
 ```
 Run `termchat --help` for all options.
+
+### Default Server
+While this project remains small, I am running a default server at `http://alexrowe.net`. 
+Just run `termchat` to connect! (Don't post any sensitive information...)
 
 ### Example Output
 Example output (real output is colored!):
@@ -53,6 +58,9 @@ Term-chat has support for channels / rooms and user names.
 ```bash
 termchat -c my_cool_channel -u my_fun_name
 ```
+
+### JSON Client
+If you want to display recent messages in some other app, you can request `http://<my-server>:2797/json/<channel_name>/<message_count>` and it will return a json structure of recent messages.
 
 ### License
 Quite liberal. Go ahead, use this repository to commit atrocious crimes.
