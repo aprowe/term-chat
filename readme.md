@@ -60,7 +60,7 @@ termchat -c my_cool_channel -u my_fun_name
 ```
 
 ### JSON Client
-If you want to display recent messages in some other app, you can request `http://<my-server>:2797/json/<channel_name>/<message_count>` and it will return a json structure of recent messages.
+If you want to display recent messages in some other app, you can try ```curl http://<my-server>:2797/json/<channel_name>/<message_count>``` and it will return a json structure of recent messages.
 
 ### License
 Quite liberal. Go ahead, use this repository to commit atrocious crimes.
