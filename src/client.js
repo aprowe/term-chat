@@ -17,6 +17,12 @@ let _user;
 // Start client by connecting to socket and subscribing to channel events
 function startClient(config, message) {
   //  Format the server URL
+  if (config.host.match('://')) {
+    config.host = config.host.replace(/^.*\:\/\//, '');
+  }
+
+  config.host = 'http://' + config.host;
+
   let url = Url.parse(config.host);
   url.host = null;
   url.protocol = 'http';

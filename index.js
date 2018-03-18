@@ -85,7 +85,7 @@ if (argv.server) {
 }
 
 // Set up read line
-function startReadline () {
+function startReadline (client) {
   readLine = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
