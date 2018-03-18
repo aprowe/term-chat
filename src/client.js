@@ -1,23 +1,23 @@
-var Url = require('url');
-var chalk = require('chalk');
-var socketClient = require('socket.io-client');
+const Url = require('url');
+const chalk = require('chalk');
+const socketClient = require('socket.io-client');
 
 // console.log wrapper
-var print = console.log;
+const print = console.log;
 
 // Socket Object
-var _socket;
+let _socket;
 
 // Channel to send and listen events on
-var _channel;
+let _channel;
 
 // User name to send with messages
-var _user;
+let _user;
 
 // Start client by connecting to socket and subscribing to channel events
 function startClient(config, message) {
   //  Format the server URL
-  var url = Url.parse(config.host);
+  let url = Url.parse(config.host);
   url.host = null;
   url.protocol = 'http';
   url.port = config.port;
@@ -94,7 +94,7 @@ function startClient(config, message) {
  * @param  {object} data  {user, message, channel}
  */
 function printMessage (data) {
-  var color;
+  let color;
 
   // Set color of user vs yourself
   if (data.user == _user) {

@@ -1,29 +1,29 @@
-var http = require('http');
-var socketio = require('socket.io');
-var chalk = require('chalk');
+const http = require('http');
+const socketio = require('socket.io');
+const chalk = require('chalk');
 
-var _io;
+let _io;
 
 // Max Number of history items
-var MAX_HISTORY = 500;
+let MAX_HISTORY = 500;
 
 // History of messages (Ephermal)
-var _history = [];
+let _history = [];
 
 // Gets a list of users in a channel
 function getUsers(channel) {
   // get all clients in room
-  var room = _io.sockets.adapter.rooms[channel]
+  let room = _io.sockets.adapter.rooms[channel]
 
   if (!room) {
     return [];
   }
 
   // Get list of connected users
-  var connectedUsers = [];
-  for (var clientId in room.sockets) {
+  let connectedUsers = [];
+  for (let clientId in room.sockets) {
     //this is the socket of each client in the room.
-    var clientSocket = _io.sockets.connected[clientId];
+    let clientSocket = _io.sockets.connected[clientId];
     connectedUsers.push(clientSocket.username);
   }
 
@@ -46,8 +46,8 @@ function serverMessage (socket, msg) {
 }
 
 function startServer (port) {
-  var server = http.Server();
-  var io = socketio(server);
+  let server = http.Server();
+  let io = socketio(server);
 
   // Set internal variable
   _io = io;
@@ -106,7 +106,7 @@ function startServer (port) {
 
   // Handle 'API' requests
   server.on('request', (request, response) => {
-    var path = request.url.split('/');
+    let path = request.url.split('/');
 
     // Filter out
     if (path[1] == 'json') {
@@ -119,16 +119,16 @@ function startServer (port) {
 // Send JSON status for API calls
 // server.com/json/channel/messageCount
 function handleJsonRequest(req, res) {
-  var params = req.url.split('/');
+  let params = req.url.split('/');
 
   // Set the channel
-  var channel = params[2] || 'general';
+  let channel = params[2] || 'general';
 
   // Set the count of messages
-  var count = params[3] || 10;
+  let count = params[3] || 10;
 
   // Create output object
-  var output = {
+  let output = {
     users: getUsers(channel),
     messages: getHistory(channel, count),
     channel: channel,

@@ -1,21 +1,21 @@
-var Url = require('url');
-var socketClient = require('socket.io-client');
+const Url = require('url');
+const socketClient = require('socket.io-client');
 
 // Socket Object
-var _socket;
+let _socket;
 
 // Channel to send and listen events on
-var _channel;
+let _channel;
 
 // User name to send with messages
-var _user;
+let _user;
 
-var _output = {};
+let _output = {};
 
 // Start client by connecting to socket and subscribing to channel events
 function startClient(config, message) {
   //  Format the server URL
-  var url = Url.parse(config.host);
+  let url = Url.parse(config.host);
   url.host = null;
   url.protocol = 'http';
   url.port = config.port;
