@@ -1,9 +1,9 @@
-var readline = require('readline');
+const readline = require('readline');
 
-var server = require('./src/server');
-var client = require('./src/client');
-var jsonClient = require('./src/json_client');
-var grabClient = require('./src/grab_client');
+const server = require('./src/server');
+const client = require('./src/client');
+const jsonClient = require('./src/json_client');
+const grabClient = require('./src/grab_client');
 
 // Set up argumnets
 const argv = require('yargs')
@@ -61,10 +61,10 @@ if (argv.version) {
 }
 
 // One-off message to send to server
-var message = argv._.join(' ');
+let message = argv._.join(' ');
 
 // Readline Variable
-var readLine;
+let readLine;
 
 // If server is set, start server
 if (argv.server) {
@@ -101,7 +101,7 @@ function startReadline () {
     // Move cursor up one line and clear line
     process.stdout.moveCursor(0, -1);
     process.stdout.clearLine();
-  
+
     // If Start of message, make a multi long message
     if (!message) {
       setTimeout(function (){
