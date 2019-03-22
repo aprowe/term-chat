@@ -1,6 +1,6 @@
 {
   "name": "term-chat",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Lightweight Chat Client CLI",
   "main": "index.js",
   "keywords": [
@@ -13,8 +13,7 @@
     "client",
     "commandline"
   ],
-  "scripts": {
-  },
+  "scripts": {},
   "bin": {
     "termchat": "./bin/termchat"
   },
